@@ -84,12 +84,17 @@ var Typer={
 				if(Typer.index>0) // else if index is not less than 0 
 					Typer.index-=Typer.speed;//	remove speed for deleting text
 			}
-			var text=$("<div/>").text(Typer.text.substring(0,Typer.index)).html();// parse the text for stripping html enities
+			var text=$("#console").text(Typer.text.substring(0,Typer.index)).html();// parse the text for stripping html enities
 			var rtn= new RegExp("\n", "g"); // newline regex
 			var rts= new RegExp("\\s", "g"); // whitespace regex
 			var rtt= new RegExp("\\t", "g"); // tab regex
-			$("#console").html(text.replace(rtn,"<br/>").replace(rtt,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(rts,"&nbsp;"));// replace newline chars with br, tabs with 4 space and blanks with an html blank
+			//$("#console").html(text.replace(rtn,"<br/>").replace(rtt,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(rts,"&nbsp;"));// replace newline chars with br, tabs with 4 space and blanks with an html blank
 			window.scrollBy(0,50); // scroll to make sure bottom is always visible
+			$("#console").syntax(
+				{brush: 'c', layout: 'plain', theme: 'base'}, 
+				function (options, html, container) {
+        			$("#highlighted-console").html(html);
+    		});
 		}
 		if ( key.preventDefault && key.keyCode != 122 ) { // prevent F11(fullscreen) from being blocked
 			key.preventDefault()
